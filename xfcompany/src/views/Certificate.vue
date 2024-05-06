@@ -1,0 +1,575 @@
+<script setup>
+import { defineComponent,reactive, toRaw } from 'vue';
+import { getImgUrl } from '@/stores/counter';
+import { Form } from 'ant-design-vue';
+const useForm = Form.useForm;
+const imgArrs=[
+  {
+    id:"gm",
+    name:"郭明",
+    grade:1,
+    ph:"13303707366",
+    src:"certificate/1/gm.png"
+  },
+  {
+    id:"jxd",
+    grade:1,
+    name:"蒋先德",
+    ph:"18672470981",
+    src:"certificate/1/jxd.png"
+  },
+  {
+    id:"nh",
+    grade:1,
+    name:"倪华",
+    ph:"15821336203",
+    src:"certificate/1/nh.png"
+  },
+  {
+    id:"szh",
+    grade:1,
+    name:"宋志昊",
+    ph:"15236536610",
+    src:"certificate/1/szh.png"
+  },
+  {
+    id:"zaj",
+    grade:1,
+    name:"张爱军",
+    ph:"13253018971",
+    src:"certificate/1/zaj.png"
+  },
+  {
+    id:"zp",
+    name:"左鹏",
+    grade:1,
+    ph:"13992980075",
+    src:"certificate/1/zp.png"
+  },
+  {
+    id:"fmm",
+    name:"樊媚敏",
+    grade:2,
+    ph:"19970180687",
+    src:"certificate/2/fmm.png"
+  },
+  {
+    id:"tjf",
+    name:"汤剑峰",
+    grade:2,
+    ph:"13913697852",
+    src:"certificate/2/tjf.png"
+  },
+  {
+    id:"tj",
+    name:"唐军",
+    grade:2,
+    ph:"18980314270",
+    src:"certificate/2/tj.png"
+  },
+  {
+    id:"xln",
+    grade:2,
+    name:"奚玲娜",
+    ph:"13515743311",
+    src:"certificate/2/xln.png"
+  },
+  {
+    id:"zyq",
+    grade:2,
+    name:"朱叶清",
+    ph:"13962460909",
+    src:"certificate/2/zyq.png"
+  },
+  {
+    id:"hym",
+    grade:3,
+    name:"黄义敏",
+    ph:"18187655363",
+    src:"certificate/3/hym.png"
+  },
+  {
+    id:"jxl",
+    grade:3,
+    name:"江宣霖",
+    ph:"13432683732",
+    src:"certificate/3/jxl.png"
+  },
+  {
+    id:"jxl",
+    grade:3,
+    name:"江宣霖",
+    ph:"13432683732",
+    src:"certificate/3/jxl.png"
+  },
+  {
+    id:"ljc",
+    grade:3,
+    name:"罗继超",
+    ph:"18600642919",
+    src:"certificate/3/ljc.png"
+  },
+  {
+    id:"pj",
+    grade:3,
+    name:"潘俊",
+    ph:"18171428797",
+    src:"certificate/3/pj.png"
+  },
+  {
+    id:"yyl",
+    grade:3,
+    name:"杨玉林",
+    ph:"13524961086",
+    src:"certificate/3/yyl.png"
+  },
+  {
+    id:"yy",
+    grade:3,
+    name:"尤宇",
+    ph:"13208257166",
+    src:"certificate/3/yy.png"
+  },
+  {
+    id:"cgq",
+    grade:4,
+    name:"陈国庆",
+    ph:"13322213737",
+    src:"certificate/4/cgq.png"
+  },
+  {
+    id:"jss",
+    grade:4,
+    name:"景拴锁",
+    ph:"18740401600",
+    src:"certificate/4/jss.png"
+  },
+  {
+    id:"lxc",
+    grade:4,
+    name:"刘星晨",
+    ph:"13171451525",
+    src:"certificate/4/lxc.png"
+  },
+  {
+    id:"wf",
+    grade:4,
+    name:"王飞",
+    ph:"18134544773",
+    src:"certificate/4/wf.png"
+  },
+  {
+    id:"wyg",
+    grade:4,
+    name:"王友刚",
+    ph:"15961998661",
+    src:"certificate/4/wyg.png"
+  },
+  {
+    id:"wj",
+    grade:4,
+    name:"吴静",
+    ph:"13815158557",
+    src:"certificate/4/wj.png"
+  },
+  {
+    id:"xdp",
+    grade:4,
+    name:"幸代平",
+    ph:"17608283748",
+    src:"certificate/4/xdp.png"
+  },
+  {
+    id:"xyl",
+    grade:4,
+    name:"徐艺玲",
+    ph:"13787286730",
+    src:"certificate/4/xyl.png"
+  },
+  {
+    id:"cxw",
+    grade:5,
+    name:"陈雄文",
+    ph:"13186170619",
+    src:"certificate/5/cxw.png"
+  },
+  {
+    id:"gl",
+    grade:5,
+    name:"苟李",
+    ph:"15577256788",
+    src:"certificate/5/gl.png"
+  },
+  {
+    id:"lh",
+    grade:5,
+    name:"李红",
+    ph:"15211144355",
+    src:"certificate/5/lh.png"
+  },
+  {
+    id:"lp",
+    grade:5,
+    name:"李鹏",
+    ph:"15235478640",
+    src:"certificate/5/lp.png"
+  },
+  {
+    id:"lyh",
+    grade:5,
+    name:"李义华",
+    ph:"18902256910",
+    src:"certificate/5/lyh.png"
+  },
+  {
+    id:"qc",
+    grade:5,
+    name:"钱程",
+    ph:"18588800134",
+    src:"certificate/5/qc.png"
+  },
+  {
+    id:"sxl",
+    grade:5,
+    name:"苏小龙",
+    ph:"15249180467",
+    src:"certificate/5/sxl.png"
+  },
+  {
+    id:"wp",
+    grade:5,
+    name:"王鹏",
+    ph:"18796055179",
+    src:"certificate/5/wp.png"
+  },
+  {
+    id:"xxs",
+    grade:5,
+    name:"许小松",
+    ph:"15985020566",
+    src:"certificate/5/xxs.png"
+  },
+  {
+    id:"zzc",
+    grade:5,
+    name:"张兆彩",
+    ph:"13319880985",
+    src:"certificate/5/zzc.png"
+  },
+  {
+    id:"csk",
+    grade:6,
+    name:"常树奎",
+    ph:"15001222369",
+    src:"certificate/6/csk.png"
+  },
+  {
+    id:"dx",
+    grade:6,
+    name:"杜旭",
+    ph:"13739431984",
+    src:"certificate/6/dx.png"
+  },
+  {
+    id:"gsw",
+    grade:6,
+    name:"高守文",
+    ph:"18796055179",
+    src:"certificate/6/gsw.png"
+  },
+  {
+    id:"hlj",
+    grade:6,
+    name:"黄连军",
+    ph:"15388886225",
+    src:"certificate/6/hlj.png"
+  },
+  {
+    id:"ljp",
+    grade:6,
+    name:"李静平",
+    ph:"13982474900",
+    src:"certificate/6/ljp.png"
+  },
+  {
+    id:"lx",
+    grade:6,
+    name:"蔺贤",
+    ph:"18288661707",
+    src:"certificate/6/lx.png"
+  },
+  {
+    id:"ly",
+    grade:6,
+    name:"龙艳",
+    ph:"15243889264",
+    src:"certificate/6/ly.png"
+  },
+  {
+    id:"szc",
+    grade:6,
+    name:"宋振昌",
+    ph:"15040464849",
+    src:"certificate/6/szc.png"
+  },
+  {
+    id:"wsk",
+    grade:6,
+    name:"王世开",
+    ph:"18767759663",
+    src:"certificate/6/wsk.png"
+  },
+  {
+    id:"ww",
+    grade:6,
+    name:"王伟",
+    ph:"17735436111",
+    src:"certificate/6/ww.png"
+  },
+  {
+    id:"yyq",
+    grade:6,
+    name:"杨永强",
+    ph:"18328605611",
+    src:"certificate/6/yyq.png"
+  },
+  {
+    id:"zjl",
+    grade:6,
+    name:"周金莲",
+    ph:"13872127757",
+    src:"certificate/6/zjl.png"
+  },
+  {
+    id:"pgl",
+    grade:7,
+    name:"彭国梁",
+    ph:"18086633817",
+    src:"certificate/7/pgl.png"
+  },
+  {
+    id:"hmx",
+    grade:7,
+    name:"何明希",
+    ph:"13880442730",
+    src:"certificate/7/hmx.png"
+  },
+  {
+    id:"pzq",
+    grade:7,
+    name:"彭志强",
+    ph:"15973216527",
+    src:"certificate/7/pzq.png"
+  },
+  {
+    id:"qy",
+    grade:7,
+    name:"齐洋",
+    ph:"13772388527",
+    src:"certificate/7/qy.png"
+  },
+  {
+    id:"tcl",
+    grade:7,
+    name:"田承龙",
+    ph:"19942170243",
+    src:"certificate/7/tcl.png"
+  },
+  {
+    id:"wdl",
+    grade:7,
+    name:"王德林",
+    ph:"18945194314",
+    src:"certificate/7/wdl.png"
+  },
+  {
+    id:"wdd",
+    grade:7,
+    name:"王东东",
+    ph:"15083200107",
+    src:"certificate/7/wdd.png"
+  },
+  {
+    id:"wjd",
+    grade:7,
+    name:"吴敬东",
+    ph:"15893262887",
+    src:"certificate/7/wjd.png"
+  },
+  {
+    id:"xgs",
+    grade:7,
+    name:"徐国胜",
+    ph:"13274152211",
+    src:"certificate/7/xgs.png"
+  },
+  {
+    id:"xp",
+    grade:7,
+    name:"徐鹏",
+    ph:"15274951336",
+    src:"certificate/7/xp.png"
+  },
+  {
+    id:"zm",
+    grade:7,
+    name:"张明",
+    ph:"13540892297",
+    src:"certificate/7/zm.png"
+  },
+  {
+    id:"chm",
+    grade:8,
+    name:"陈红梅",
+    ph:"18283973411",
+    src:"certificate/8/chm.png"
+  },
+  {
+    id:"dh",
+    grade:8,
+    name:"丁慧",
+    ph:"15247110355",
+    src:"certificate/8/dh.png"
+  },
+  {
+    id:"hgz",
+    grade:8,
+    name:"胡冠中",
+    ph:"18670813330",
+    src:"certificate/8/hgz.png"
+  },
+  {
+    id:"kqq",
+    grade:8,
+    name:"匡芹芹",
+    ph:"13363955135",
+    src:"certificate/8/kqq.png"
+  },
+  {
+    id:"lm",
+    grade:8,
+    name:"李敏",
+    ph:"15114814620",
+    src:"certificate/8/lm.png"
+  },
+  {
+    id:"lw",
+    grade:8,
+    name:"卢维",
+    ph:"17671713967",
+    src:"certificate/8/lw.png"
+  },
+  {
+    id:"lzc",
+    grade:8,
+    name:"李宗成",
+    ph:"18886384735",
+    src:"certificate/8/lzc.png"
+  },
+  {
+    id:"lzz",
+    grade:8,
+    name:"栗振贞",
+    ph:"13048452395",
+    src:"certificate/8/lzz.png"
+  },
+  {
+    id:"sh",
+    grade:8,
+    name:"宋宏",
+    ph:"15073793287",
+    src:"certificate/8/sh.png"
+  },
+  {
+    id:"whb",
+    grade:8,
+    name:"吴辉宝",
+    ph:"15112456911",
+    src:"certificate/8/whb.png"
+  }
+];
+const modelRef = reactive({
+  name: '',
+  region: undefined
+});
+const rulesRef = reactive({
+  name: [
+    {
+      required: true,
+      message: '输入您的姓名',
+    },
+  ],
+  region: [
+    {
+      required: true,
+      message: '输入您的电话号码',
+    },
+  ]
+});
+const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef);
+const onSubmit = () => {
+  validate()
+    .then(() => {
+      const regExp = /^1[3456789]\d{9}$/; // 定义手机号的正则表达式
+      if (!regExp.test(modelRef.region)) {
+        modelRef.region="";
+      }
+    })
+  .catch(err => {
+    console.log('error', err);
+  });
+};
+</script>
+<template>
+  <main>
+    <div class="container">
+    <a-form layout="inline">
+    <a-form-item label="姓名" v-bind="validateInfos.name">
+      <a-input v-model:value="modelRef.name" placeholder="输入您的姓名"/>
+    </a-form-item>
+    <a-form-item label="电话" v-bind="validateInfos.region">
+     <a-input pattern="^1[3456789]\d{9}$" v-model:value="modelRef.region" placeholder="输入您的电话号码" />
+    </a-form-item>
+    <a-form-item>
+      <a-button type="primary" @click.prevent="onSubmit">查询</a-button>
+      <a-button style="margin-left: 10px" @click="resetFields">重置</a-button>
+    </a-form-item>
+  </a-form>
+    <div class="imgBox">
+      <img v-for="imgArr in imgArrs" key="imgArr.ph" :src="getImgUrl(imgArr.src)" v-bind:style="{display:modelRef.name===imgArr.name&&modelRef.region===imgArr.ph ? 'inline' : 'none'}"/>
+      <p v-bind:style="{display:modelRef.name===''&&modelRef.region===undefined ? 'inline-block' : 'none'}">证书展示区</p>
+    </div>
+    </div>
+  </main>
+</template>
+
+<style scoped>
+main{
+  padding-top: 6rem;
+}
+.imgBox{
+  text-align: center;
+  padding-top: 1rem;
+}
+.imgBox p{
+  padding: 12rem 20rem;
+  background: rgba(0, 0, 0, 0.03);
+}
+@media (max-width: 768px){
+  main{
+    padding-top: 3rem;
+  }
+  .imgBox p{
+    padding:6rem;
+  }
+  .imgBox img{
+    width:100%;
+  }
+  .ant-form{
+    justify-content: center;
+  }
+  .ant-btn{
+    margin-top:1rem;
+  }
+}
+</style>

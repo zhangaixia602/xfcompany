@@ -1,35 +1,77 @@
 @import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+*{
+  margin: 0;
+  padding:0;
 }
-
+body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, textarea, p{
+  margin:0;
+  padding:0;
+  border-box:
+}
+h1, h2, h3, h4, h5, h6{
+  margin:0 !important;
+  padding:0 !important;
+}
+html{
+  width:100%;
+  height:100%;
+  font-size:20px;
+}
+body{
+  width:100%;
+  height:100%;
+  overflow-x: hidden;
+}
+.container{
+  width:60rem;
+  margin: 0 auto;
+}
+header{
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height:4.5rem;
+  width:100%;
+  z-index: 9999999999999;
+  background-color: black;
+}
+footer{
+  /* position: fixed;
+  bottom: 0;
+  left: 0; */
+  color:white;
+  font-size: 0.6rem;
+  width:100%;
+  height:7.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(34 31 31 / 22%);
+}
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color:white;
   transition: 0.4s;
-  padding: 3px;
+  padding:0 1rem;
 }
 
 @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+ 
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+@media (max-width: 768px) {
+  .container{
+    width:100%;
   }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  header{
+    height:3rem;
+  }
+  .slick-arrow{
+    display:none !important;
+  }
+  footer{
+    position: static;
   }
 }

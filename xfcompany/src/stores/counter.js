@@ -10,3 +10,6 @@ export const useCounterStore = defineStore('counter', () => {
 
   return { count, doubleCount, increment }
 })
+export const getImgUrl=(image)=>{
+  return new URL(`../assets/images/${image}`,import.meta.url).href
+}
